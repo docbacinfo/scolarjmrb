@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio de la Escuela</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Estilo para los frames */
+        frame {
+            border: none;
+        }
+        
+        /* Contenedor principal de frames */
+        .frame-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        /* Frame superior (encabezado) */
+        #header-frame {
+            height: 15%;
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #ccc;
+        }
+        
+        /* Contenedor de frames centrales */
+        #middle-frames {
+            display: flex;
+            height: 70%;
+            width: 100%;
+        }
+        
+        /* Frame izquierdo (menú) */
+        #menu-frame {
+            width: 20%;
+            background-color: #e0e0e0;
+            overflow-y: auto;
+            border-right: 1px solid #ccc;
+        }
+        
+        /* Frame derecho (contenido) */
+        #content-frame {
+            width: 80%;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+        
+        /* Frame inferior (pie de página) */
+        #footer-frame {
+            height: 15%;
+            width: 100%;
+            background-color: #f0f0f0;
+            border-top: 2px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        /* Estilos para el menú */
+        .menu-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: #d0d0d0;
+        }
+        
+        /* Estilos para el encabezado */
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .school-logo {
+            height: 60px;
+            width: auto;
+        }
+        
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        /* Estilos para el pie de página */
+        .footer-content {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .social-links {
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        /* Estilos para el video */
+        .video-container {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame-container">
+        <!-- Frame superior (encabezado) -->
+        <div id="header-frame">
+            <div class="header-content">
+                <img src="escudo.png" alt="Escudo de la escuela" class="school-logo">
+                <div class="school-name">Nombre de la Escuela</div>
+            </div>
+        </div>
+        
+        <!-- Frames centrales -->
+        <div id="middle-frames">
+            <!-- Frame izquierdo (menú) -->
+            <div id="menu-frame">
+                <ul class="menu-list">
+                    <li class="menu-item" onclick="loadContent('historia.html')">Historia</li>
+                    <li class="menu-item" onclick="loadContent('horario.html')">Horario</li>
+                    <li class="menu-item" onclick="loadContent('companeros.html')">Compañeros</li>
+                    <li class="menu-item" onclick="loadContent('instalaciones.html')">Instalaciones</li>
+                    <li class="menu-item" onclick="loadContent('servicios.html')">Servicios</li>
+                    <li class="menu-item" onclick="loadContent('ludoteca.html')">Ludoteca</li>
+                    <li class="menu-item" onclick="loadContent('carrera.html')">Carrera</li>
+                    <li class="menu-item" onclick="loadContent('video.html')">Video Institucional</li>
+                    <li class="menu-item" onclick="loadContent('deportes.html')">Actividades Deportivas</li>
+                </ul>
+            </div>
+            
+            <!-- Frame derecho (contenido) -->
+            <div id="content-frame">
+                <!-- Contenido se cargará aquí dinámicamente -->
+                <div style="padding: 20px; text-align: center;">
+                    <h2>Bienvenido al sitio de la escuela</h2>
+                    <p>Seleccione una opción del menú izquierdo para ver el contenido.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Frame inferior (pie de página) -->
+        <div id="footer-frame">
+            <div class="footer-content">
+                <div>Dirección: [Dirección de la escuela]</div>
+                <div>Teléfono: [Teléfono de contacto]</div>
+                <div>Email: [Correo electrónico]</div>
+                <div class="social-links">
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cargar contenido en el frame derecho
+        function loadContent(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('content-frame').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error al cargar la página:', error);
+                    document.getElementById('content-frame').innerHTML = `
+                        <div style="padding: 20px; color: red;">
+                            <h2>Error al cargar la página</h2>
+                            <p>No se pudo cargar el contenido solicitado.</p>
+                        </div>
+                    `;
+                });
+        }
+    </script>
+</body>
+</html>
